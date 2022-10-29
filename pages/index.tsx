@@ -8,15 +8,36 @@ import {
   ListItem, 
   UnorderedList, 
   Separator, 
-  Button
+  Button,
+  Grid,
+  Column,
+  Flex
 } from '@twilio-paste/core';
 
-import { Header } from '../components';
+import { Header, SidePanel } from '../components';
 import type {NextPage} from 'next';
+import { MainPanel } from '../components/MainPanel';
+import {styled} from '@twilio-paste/styling-library';
+
+import * as Tokens from '@twilio-paste/core/design-tokens';
+//import type {GenericTokensShape} from '@twilio-paste/design-tokens/types/GenericTokensShape';
+
+const PAGE_FULL_HEIGHT = '100vh';
+const HEADER_HEIGHT = Tokens.size10;
+
+const FullHeightComponent = styled(Box)(() => ({
+  height: `calc(${PAGE_FULL_HEIGHT} - ${HEADER_HEIGHT})`,
+  width: '100%',
+  WebkitOverflowScrolling: 'touch',
+}));
 
 const Home: NextPage = () => {
   return (
-    <Box as="main">
+    <Box as="main" 
+    // borderColor={'colorBorderDark'} 
+    // borderWidth='borderWidth40' 
+    // borderStyle={'solid'} 
+    height={PAGE_FULL_HEIGHT}>
       <Head>
         <title>Paste NextJS App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -24,8 +45,76 @@ const Home: NextPage = () => {
 
       <Header title="My Example Project" team="Twilio SE ANZ"/>
 
+      {/* <StyledSidebar>
+        <SidePanel/>
+      </StyledSidebar> */}
+      
+      {/* <Flex
+        vertical
+        vAlignContent='center'>
+        <Flex>
+          <Box>
+          Nav
+          </Box>
+        </Flex>
+        <Flex grow>
+          <Box>
+          Bottom
+          </Box>
+        </Flex>
+      </Flex> */}
+  
+      <Flex>
+          <Flex>
+            <FullHeightComponent>
+              <Box as='nav'
+                overflow={'auto'}
+                height={'100%'}
+                backgroundColor="colorBackgroundPrimaryWeak"
+                // paddingBottom={['space70', 'space70', 'space0']}
+                // paddingTop={['space50', 'space50', 'space70']}
+                // paddingX={'space20'}
+                padding={'space20'}
+                
+                //height={'size80'}
+              >
+                <SidePanel />
+              </Box>
+            </FullHeightComponent>
+          </Flex>
+          <Flex grow>
+            <FullHeightComponent>
+            <Box
+              backgroundColor="colorBackgroundPrimaryWeaker"
+              padding="space40"
+              height={'100%'}
+              //height={'size80'}
+            >
+              <MainPanel />
+            </Box>
+            </FullHeightComponent>
+          </Flex>
+      </Flex>
+        {/* <Box 
+          display={'flex'} 
+          minHeight={'90vh'} 
+          flexDirection={'column'} 
+          alignItems={'stretch'} 
+          backgroundColor={'colorBackgroundBrandHighlightWeakest'}
+          >
+          <Grid gutter={"space50"}>
+            <Column span={2}>
+              <SidePanel/>
+            </Column>
+            <Column span={10}>
+              <MainPanel/>
+            </Column>
+          </Grid>
+        </Box>
+        </Flex> */}
+      
 
-      <Box padding="space70">
+      {/* <Box padding="space70">
         <Heading as="h1" variant="heading10">
           Welcome to the the Paste Next.JS App!
         </Heading>
@@ -72,7 +161,7 @@ const Home: NextPage = () => {
             <Paragraph>Instantly deploy your Next.js site to a public URL with Vercel.</Paragraph>
           </ListItem>
         </UnorderedList>
-      </Box>
+      </Box> */}
     </Box>
   );
 };
