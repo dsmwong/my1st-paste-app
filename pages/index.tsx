@@ -20,7 +20,9 @@ import { MainPanel } from '../components/MainPanel';
 import {styled} from '@twilio-paste/styling-library';
 
 import * as Tokens from '@twilio-paste/core/design-tokens';
+import { useEffect } from 'react';
 //import type {GenericTokensShape} from '@twilio-paste/design-tokens/types/GenericTokensShape';
+import { getDataFromAPI } from '../api/simpleAPI';
 
 const PAGE_FULL_HEIGHT = '100vh';
 const HEADER_HEIGHT = Tokens.size10;
@@ -32,6 +34,22 @@ const FullHeightComponent = styled(Box)(() => ({
 }));
 
 const Home: NextPage = () => {
+
+  useEffect(() => {
+
+    // two ways to deal with async calls in useEffect 
+    (async function a() {
+      const data = await getDataFromAPI()
+      console.log(JSON.stringify(data, null, 2)) 
+    })();
+
+    // option 2
+    getDataFromAPI().then(data => {
+      console.log(JSON.stringify(data, null, 2))
+    });
+
+  }, []);
+
   return (
     <Box as="main" 
     // borderColor={'colorBorderDark'} 
@@ -45,25 +63,6 @@ const Home: NextPage = () => {
 
       <Header title="My Example Project" team="Twilio SE ANZ"/>
 
-      {/* <StyledSidebar>
-        <SidePanel/>
-      </StyledSidebar> */}
-      
-      {/* <Flex
-        vertical
-        vAlignContent='center'>
-        <Flex>
-          <Box>
-          Nav
-          </Box>
-        </Flex>
-        <Flex grow>
-          <Box>
-          Bottom
-          </Box>
-        </Flex>
-      </Flex> */}
-  
       <Flex>
           <Flex>
             <FullHeightComponent>
@@ -94,25 +93,7 @@ const Home: NextPage = () => {
             </Box>
             </FullHeightComponent>
           </Flex>
-      </Flex>
-        {/* <Box 
-          display={'flex'} 
-          minHeight={'90vh'} 
-          flexDirection={'column'} 
-          alignItems={'stretch'} 
-          backgroundColor={'colorBackgroundBrandHighlightWeakest'}
-          >
-          <Grid gutter={"space50"}>
-            <Column span={2}>
-              <SidePanel/>
-            </Column>
-            <Column span={10}>
-              <MainPanel/>
-            </Column>
-          </Grid>
-        </Box>
-        </Flex> */}
-      
+      </Flex>      
 
       {/* <Box padding="space70">
         <Heading as="h1" variant="heading10">
